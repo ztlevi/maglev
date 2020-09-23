@@ -45,8 +45,9 @@ set -sg escape-time 0
 
 # List of plugins
 set -g @tpm_plugins '                     \
-    caiogondim/maglev                     \
+    ztlevi/maglev                         \
     tmux-plugins/tpm                      \
+    soyuka/tmux-current-pane-hostname     \
     tmux-plugins/tmux-sensible            \
     tmux-plugins/tmux-resurrect           \
     tmux-plugins/tmux-continuum           \
@@ -63,22 +64,25 @@ set -g @tpm_plugins '                     \
 run '~/.tmux/plugins/tpm/tpm'
 ```
 
-This Tmux theme was made to work with [Bullet train](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme) ZSH theme.
+This Tmux theme was made to work with [Bullet train](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme) ZSH
+theme.
 
 Some dependencies:
+
 - [Tmux](http://tmux.github.io/)
 - [TPM](https://github.com/tmux-plugins/tpm)
 - [Powerline patched font](https://github.com/powerline/fonts)
 
 ## Donating
 
-If you found this library useful and are willing to donate, transfer some
-bitcoins to `1BqqKiZA8Tq43CdukdBEwCdDD42jxuX9UY` or through the
-[URL](https://www.coinbase.com/caiogondim) https://www.coinbase.com/caiogondim
+If you found this library useful and are willing to donate, transfer some bitcoins to
+`1BqqKiZA8Tq43CdukdBEwCdDD42jxuX9UY` or through the [URL](https://www.coinbase.com/caiogondim)
+https://www.coinbase.com/caiogondim
 
 Or via [PayPal.me](https://www.paypal.me/caiogondim) https://www.paypal.me/caiogondim.
 
 ## Credits
+
 - Icon created by Katya Sotnikova from The Noun Project
 - [Tmux open](https://github.com/tmux-plugins/tmux-open)
 - [Tmux battery status](https://github.com/tmux-plugins/tmux-battery)

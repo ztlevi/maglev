@@ -103,8 +103,8 @@ apply_theme() {
   tmux set -g status-style fg=$status_fg,bg=$status_bg
 
   session_fg=colour254 # white
-  session_bg=colour9   # yellow
-  status_left="#[fg=$session_fg,bg=$session_bg,bold] ❐ #S #[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black"
+  session_bg=colour9   # red
+  status_left="#[fg=$session_fg,bg=$session_bg,bold] #U@#H  #S #[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black"
   if [ x"$(tmux -q -L tmux_theme_status_left_test -f /dev/null new-session -d \; show -g -v status-left \; kill-session)" = x"[#S] " ]; then
     status_left="$status_left "
   fi
