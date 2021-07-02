@@ -63,10 +63,11 @@ main
 # END Fix CPU segment ----------------------------------------------------------
 
 apply_theme() {
-  left_separator=''
-  left_separator_black=''
-  right_separator=''
-  right_separator_black=''
+  left_separator=''
+  left_separator_black=''
+  right_separator=''
+  right_separator_black=''
+  right_top_separator=''
   session_symbol=''
 
   # panes
@@ -104,7 +105,7 @@ apply_theme() {
 
   session_fg=colour254 # white
   session_bg=colour9   # red
-  status_left="#[fg=$session_fg,bg=$session_bg,bold] #h   #S #[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black"
+  status_left="#[fg=$session_fg,bg=$session_bg,bold] #H   #S #[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black  "
   if [ x"$(tmux -q -L tmux_theme_status_left_test -f /dev/null new-session -d \; show -g -v status-left \; kill-session)" = x"[#S] " ]; then
     status_left="$status_left "
   fi
@@ -117,7 +118,7 @@ apply_theme() {
 
   window_status_current_fg=colour254 # white
   window_status_current_bg=colour4   # blue
-  window_status_current_format="#[fg=$window_status_bg,bg=$window_status_current_bg]$left_separator_black#[fg=$window_status_current_fg,bg=$window_status_current_bg,bold] #I $left_separator #W #[fg=$window_status_current_bg,bg=$status_bg,nobold]$left_separator_black"
+  window_status_current_format="#[fg=$window_status_bg,bg=$window_status_current_bg]$left_separator_black#[fg=$window_status_current_fg,bg=$window_status_current_bg,bold]  #I #W #[fg=$window_status_current_bg,bg=$status_bg,nobold]$left_separator_black  "
   tmux setw -g window-status-current-format "$window_status_current_format"
   tmux set -g status-justify left
 
@@ -144,11 +145,11 @@ apply_theme() {
   whoami_bg=colour160        # red
   host_fg=colour15           # black
   host_bg=colour12           # white
-  status_right="︎#[fg=$time_date_fg,nobold]#{prefix_highlight} $right_separator %R $right_separator %a %d %b #[fg=$host_bg]"
+  status_right="︎#[fg=$time_date_fg,nobold]#{prefix_highlight} $right_separator  %R $right_separator  %a %d %b #[fg=$host_bg]"
 
   # Only show solid separator if CPU or Battery are to be displayed
   if [ "$SHOW_BATTERY" = true ] || [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right $right_separator_black#[fg=$host_fg,bg=$host_bg,bold]"
+    status_right="$status_right #[fg=$host_fg,bg=$host_bg,bold]$right_top_separator  "
   fi
 
   if [ "$SHOW_BATTERY" = true ]; then
@@ -157,7 +158,7 @@ apply_theme() {
 
   # Only add intermediate separator if both CPU and Batter are to be displayed
   if [ "$SHOW_BATTERY" = true ] && [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right $right_separator"
+    status_right="$status_right $right_separator  "
   fi
 
   if [ "$SHOW_CPU" = true ]; then
