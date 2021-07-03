@@ -105,7 +105,7 @@ apply_theme() {
 
   session_fg=colour254 # white
   session_bg=colour9   # red
-  status_left="#[fg=$session_fg,bg=$session_bg,bold] #H  #S#[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black "
+  status_left="#[fg=$session_fg,bg=$session_bg,bold] #H  #S#[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black "
   if [ x"$(tmux -q -L tmux_theme_status_left_test -f /dev/null new-session -d \; show -g -v status-left \; kill-session)" = x"[#S] " ]; then
     status_left="$status_left "
   fi
@@ -145,11 +145,11 @@ apply_theme() {
   whoami_bg=colour1          # red
   host_fg=colour7            # white
   host_bg=colour12           # blue
-  status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator  %m/%d %R#[fg=$host_bg,bg=$battery_bg]"
+  status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator   %m/%d %R#[fg=$host_bg,bg=$battery_bg]"
 
   # Only show solid separator if CPU or Battery are to be displayed
   if [ "$SHOW_BATTERY" = true ] || [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right$right_top_separator  #[fg=$host_fg,bg=$battery_bg,bold]"
+    status_right="$status_right$right_top_separator #[fg=$host_fg,bg=$battery_bg,bold]"
   fi
 
   if [ "$SHOW_BATTERY" = true ]; then
@@ -158,11 +158,11 @@ apply_theme() {
 
   # Only add intermediate separator if both CPU and Batter are to be displayed
   if [ "$SHOW_BATTERY" = true ] && [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right $right_separator  "
+    status_right="$status_right $right_separator"
   fi
 
   if [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right CPU #{cpu_percentage} "
+    status_right="$status_right  CPU #{cpu_percentage} "
   fi
 
   tmux set -g status-right-length 64 \; set -g status-right "$status_right"
