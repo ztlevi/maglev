@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/scripts/helpers.sh"
+
+# Theme color
+tmux_maglev_theme=$(get_tmux_option "@tmux-maglev-theme" "light")
+if [[ $tmux_maglev_theme == "light" ]]; then
+    default_fg=colour0 # black
+    default_bg=colour7 # white
+else
+    default_fg=colour7 # white
+    default_bg=colour0 # black
+fi
+
 PLUGINS=$(tmux show-options -g | grep @tpm_plugins)
 
 # Determine whether the tmux-cpu plugin should be installed
@@ -71,53 +84,53 @@ apply_theme() {
   session_symbol=''
 
   # panes
-  pane_border_fg=colour8         # gray
-  pane_active_border_fg=colour12 # blue
+  pane_border_fg=$default_fg
+  pane_active_border_fg=colour4 # blue
 
   tmux set -g pane-border-style fg=$pane_border_fg \; set -g pane-active-border-style fg=$pane_active_border_fg
   #uncomment for fat borders
   #tmux set -ga pane-border-style bg=$pane_border_fg \; set -ga pane-active-border-style bg=$pane_active_border_fg
 
-  display_panes_active_colour=colour12 # blue
-  display_panes_colour=colour12        # blue
+  display_panes_active_colour=colour4 # blue
+  display_panes_colour=colour4        # blue
   tmux set -g display-panes-active-colour $display_panes_active_colour \; set -g display-panes-colour $display_panes_colour
 
   # messages
-  message_fg=colour0  # black
-  message_bg=colour11 # yellow
+  message_fg=$default_fg
+  message_bg=colour3 # yellow
   message_attr=bold
   tmux set -g message-style fg=$message_fg,bg=$message_bg,$message_attr
 
-  message_command_fg=colour0  # black
-  message_command_bg=colour11 # yellow
+  message_command_fg=$default_fg
+  message_command_bg=colour3 # yellow
   tmux set -g message-command-style fg=$message_command_fg,bg=$message_command_bg,$message_attr
 
   # windows mode
-  mode_fg=colour0  # black
-  mode_bg=colour11 # yellow
+  mode_fg=$default_fg
+  mode_bg=colour3 # yellow
   mode_attr=bold
   tmux setw -g mode-style fg=$mode_fg,bg=$mode_bg,$mode_attr
 
   # status line
-  status_fg=colour8   # grey
-  status_bg=colour254 # white
+  status_fg=$default_fg
+  status_bg=$default_bg
   tmux set -g status-style fg=$status_fg,bg=$status_bg
 
-  session_fg=colour254 # white
-  session_bg=colour9   # red
+  session_fg=$default_bg
+  session_bg=colour1   # red
   status_left="#[fg=$session_fg,bg=$session_bg,bold] #h  #S#[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black  "
   if [ x"$(tmux -q -L tmux_theme_status_left_test -f /dev/null new-session -d \; show -g -v status-left \; kill-session)" = x"[#S] " ]; then
-    status_left="$status_left "
+    status_left="$status_left"
   fi
   tmux set -g status-left-length 32 \; set -g status-left "$status_left"
 
-  window_status_fg=colour8   # gray
-  window_status_bg=colour7 # white
+  window_status_fg=$default_fg
+  window_status_bg=$default_bg
   window_status_format=" #I #W"
   tmux setw -g window-status-style fg=$window_status_fg,bg=$window_status_bg \; setw -g window-status-format "$window_status_format"
 
-  window_status_current_fg=colour7 # white
-  window_status_current_bg=colour4   # blue
+  window_status_current_fg=$default_bg
+  window_status_current_bg=colour4 # blue
   window_status_current_format="#[fg=$window_status_bg,bg=$window_status_current_bg]$left_separator_black#[fg=$window_status_current_fg,bg=$window_status_current_bg,bold]  #I #W#[fg=$window_status_current_bg,bg=$status_bg,nobold]$left_separator_black "
   tmux setw -g window-status-current-format "$window_status_current_format"
   tmux set -g status-justify left
@@ -127,7 +140,7 @@ apply_theme() {
   window_status_activity_attr=underscore
   tmux setw -g window-status-activity-style fg=$window_status_activity_fg,bg=$window_status_activity_bg,$window_status_activity_attr
 
-  window_status_bell_fg=colour11 # yellow
+  window_status_bell_fg=colour3 # yellow
   window_status_bell_bg=default
   window_status_bell_attr=blink,bold
   tmux setw -g window-status-bell-style fg=$window_status_bell_fg,bg=$window_status_bell_bg,$window_status_bell_attr
@@ -136,15 +149,15 @@ apply_theme() {
   window_status_last_attr=default
   tmux setw -g window-status-last-style $window_status_last_attr,fg=$window_status_last_fg
 
-  battery_full_fg=colour1  # red
-  battery_empty_fg=colour7 # white
+  battery_full_fg=colour1    # red
+  battery_empty_fg=$default_bg
   battery_bg=colour1         # red
-  time_date_fg=colour8       # gray
-  time_date_bg=colour3       # dark gray
-  whoami_fg=colour7          # white
+  time_date_fg=$default_fg
+  time_date_bg=colour3       # yellow
+  whoami_fg=$default_bg
   whoami_bg=colour1          # red
-  host_fg=colour7            # white
-  host_bg=colour12           # blue
+  host_fg=$default_bg
+  host_bg=colour4            # blue
   status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator   %m/%d %R#[fg=$host_bg,bg=$battery_bg]"
 
   # Only show solid separator if CPU or Battery are to be displayed
