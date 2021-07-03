@@ -43,6 +43,9 @@ set-option -g repeat-time 0
 # Removes ESC delay
 set -sg escape-time 0
 
+# Set status bar theme
+set -g @tmux-maglev-theme 'light'
+
 # List of plugins
 set -g @tpm_plugins '                     \
     ztlevi/maglev                         \

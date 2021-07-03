@@ -5,7 +5,7 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$CURRENT_DIR/scripts/helpers.sh"
 
 # Theme color
-tmux_maglev_theme=$(get_tmux_option "@tmux-maglev-theme" "light")
+tmux_maglev_theme=$(get_tmux_option "@tmux-maglev-theme" "dark")
 if [[ $tmux_maglev_theme == "light" ]]; then
     default_fg=colour0 # black
     default_bg=colour7 # white
