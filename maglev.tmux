@@ -117,7 +117,7 @@ apply_theme() {
   tmux set -g status-style fg=$status_fg,bg=$status_bg
 
   session_fg=$default_bg
-  session_bg=colour1   # red
+  session_bg=colour6   # cyan
   status_left="#[fg=$session_fg,bg=$session_bg,bold] #h  #S#[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black  "
   if [ x"$(tmux -q -L tmux_theme_status_left_test -f /dev/null new-session -d \; show -g -v status-left \; kill-session)" = x"[#S] " ]; then
     status_left="$status_left"
@@ -149,33 +149,33 @@ apply_theme() {
   window_status_last_attr=default
   tmux setw -g window-status-last-style $window_status_last_attr,fg=$window_status_last_fg
 
-  battery_full_fg=colour1    # red
+  battery_full_fg=colour6    # cyan
   battery_empty_fg=$default_bg
-  battery_bg=colour1         # red
+  battery_bg=colour6         # cyan
   time_date_fg=$default_fg
   time_date_bg=colour3       # yellow
   whoami_fg=$default_bg
-  whoami_bg=colour1          # red
+  whoami_bg=colour6          # cyan
   host_fg=$default_bg
   host_bg=colour4            # blue
-  status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator   %m/%d %R#[fg=$host_bg,bg=$battery_bg]"
+  status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator   %m/%d %R #[fg=$host_bg,bg=$host_fg,nobold]"
 
   # Only show solid separator if CPU or Battery are to be displayed
   if [ "$SHOW_BATTERY" = true ] || [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right$right_top_separator #[fg=$host_fg,bg=$battery_bg,bold]"
+    status_right="$status_right$right_top_separator  #[fg=$battery_bg,bg=$host_fg,nobold]"
   fi
 
   if [ "$SHOW_BATTERY" = true ]; then
-    status_right="$status_right #{battery_icon} #{battery_percentage}"
+    status_right="$status_right $right_separator_black #[fg=$host_fg,bg=$battery_bg,bold] #{battery_icon} #{battery_percentage}#[fg=$host_bg,bg=$battery_fg,nobold]"
   fi
 
   # Only add intermediate separator if both CPU and Batter are to be displayed
   if [ "$SHOW_BATTERY" = true ] && [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right $right_separator"
+    status_right="$status_right $right_separator#[fg=$battery_bg,bg=$battery_bg,bold]"
   fi
 
   if [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right  CPU #{cpu_percentage} "
+    status_right="$status_right$right_separator_black #[fg=$host_fg,bg=$battery_bg,bold]  CPU #{cpu_percentage} "
   fi
 
   tmux set -g status-right-length 64 \; set -g status-right "$status_right"
