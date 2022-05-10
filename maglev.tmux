@@ -175,7 +175,7 @@ apply_theme() {
   fi
 
   if [ "$SHOW_CPU" = true ]; then
-    status_right="$status_right$right_separator_black #[fg=$host_fg,bg=$battery_bg,bold]  CPU #{cpu_percentage} "
+    status_right="$status_right#[fg=$host_fg,bg=$battery_bg,bold]$right_top_separator  CPU #{cpu_percentage} "
   fi
 
   tmux set -g status-right-length 64 \; set -g status-right "$status_right"
