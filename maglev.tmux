@@ -126,12 +126,12 @@ apply_theme() {
 
   window_status_fg=$default_fg
   window_status_bg=$default_bg
-  window_status_format=" #I #W"
+  window_status_format=" #I #W "
   tmux setw -g window-status-style fg=$window_status_fg,bg=$window_status_bg \; setw -g window-status-format "$window_status_format"
 
   window_status_current_fg=$default_bg
   window_status_current_bg=colour4 # blue
-  window_status_current_format="#[fg=$window_status_bg,bg=$window_status_current_bg]$left_separator_black#[fg=$window_status_current_fg,bg=$window_status_current_bg,bold]  #I #W#[fg=$window_status_current_bg,bg=$status_bg,nobold]$left_separator_black "
+  window_status_current_format="#[fg=$window_status_bg,bg=$window_status_current_bg]$left_separator_black#[fg=$window_status_current_fg,bg=$window_status_current_bg,bold]$window_status_format#[fg=$window_status_current_bg,bg=$status_bg,nobold]$left_separator_black "
   tmux setw -g window-status-current-format "$window_status_current_format"
   tmux set -g status-justify left
 
