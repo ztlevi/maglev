@@ -14,6 +14,13 @@ else
     default_bg=colour0 # black
 fi
 
+# Configure theme color for remote and non remote
+if [[ -z $SSH_CLIENT ]]; then
+    theme_color_1=colour6
+else
+    theme_color_1=colour5
+fi
+
 PLUGINS=$(tmux show-options -g | grep @tpm_plugins)
 
 # Determine whether the tmux-cpu plugin should be installed
@@ -89,14 +96,14 @@ apply_theme() {
 
   # panes
   pane_border_fg=$default_fg
-  pane_active_border_fg=colour4 # blue
+  pane_active_border_fg=colour4
 
   tmux set -g pane-border-style fg=$pane_border_fg \; set -g pane-active-border-style fg=$pane_active_border_fg
   #uncomment for fat borders
   #tmux set -ga pane-border-style bg=$pane_border_fg \; set -ga pane-active-border-style bg=$pane_active_border_fg
 
-  display_panes_active_colour=colour4 # blue
-  display_panes_colour=colour4        # blue
+  display_panes_active_colour=colour4
+  display_panes_colour=colour4
   tmux set -g display-panes-active-colour $display_panes_active_colour \; set -g display-panes-colour $display_panes_colour
 
   # messages
@@ -121,7 +128,7 @@ apply_theme() {
   tmux set -g status-style fg=$status_fg,bg=$status_bg
 
   session_fg=$default_bg
-  session_bg=colour6   # cyan
+  session_bg=$theme_color_1
   status_left="#[fg=$session_fg,bg=$session_bg,bold] #h 󰂺 #S#[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black  "
   if [ x"$(tmux -q -L tmux_theme_status_left_test -f /dev/null new-session -d \; show -g -v status-left \; kill-session)" = x"[#S] " ]; then
     status_left="$status_left"
@@ -134,7 +141,7 @@ apply_theme() {
   tmux setw -g window-status-style fg=$window_status_fg,bg=$window_status_bg \; setw -g window-status-format "$window_status_format"
 
   window_status_current_fg=$default_bg
-  window_status_current_bg=colour4 # blue
+  window_status_current_bg=colour4
   window_status_current_format="#[fg=$window_status_bg,bg=$window_status_current_bg]$left_separator_black#[fg=$window_status_current_fg,bg=$window_status_current_bg,bold]$window_status_format#[fg=$window_status_current_bg,bg=$status_bg,nobold]$left_separator_black "
   tmux setw -g window-status-current-format "$window_status_current_format"
   tmux set -g status-justify left
@@ -149,19 +156,19 @@ apply_theme() {
   window_status_bell_attr=blink,bold
   tmux setw -g window-status-bell-style fg=$window_status_bell_fg,bg=$window_status_bell_bg,$window_status_bell_attr
 
-  window_status_last_fg=colour4 # blue
+  window_status_last_fg=colour4
   window_status_last_attr=default
   tmux setw -g window-status-last-style $window_status_last_attr,fg=$window_status_last_fg
 
-  battery_full_fg=colour6    # cyan
+  battery_full_fg=$theme_color_1
   battery_empty_fg=$default_bg
-  battery_bg=colour6         # cyan
+  battery_bg=$theme_color_1
   time_date_fg=$default_fg
   time_date_bg=colour3       # yellow
   whoami_fg=$default_bg
-  whoami_bg=colour6          # cyan
+  whoami_bg=$theme_color_1
   host_fg=$default_bg
-  host_bg=colour4            # blue
+  host_bg=colour4
   status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator  󰃭 %m/%d %R #[fg=$host_bg,bg=$host_fg,nobold]"
 
   # Only show solid separator if CPU or Battery are to be displayed
@@ -189,7 +196,7 @@ apply_theme() {
   tmux set -g status-right-length 64 \; set -g status-right "$status_right"
 
   # clock
-  clock_mode_colour=colour4 # blue
+  clock_mode_colour=colour4
   tmux setw -g clock-mode-colour $clock_mode_colour
 }
 
