@@ -131,16 +131,16 @@ apply_theme() {
   if [ $(_os) = "macos" ]; then
     os_icon=
   else
-    os_icon=󰌽
+    os_icon=
   fi
 
   session_fg=$default_bg
   session_bg=$theme_color_1
-  status_left="#[fg=$session_fg,bg=$session_bg,bold] $os_icon #h 󰂺 #S#[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black  "
+  status_left="#[fg=$session_fg,bg=$session_bg,bold] $os_icon  #h 󰂺 #S#[fg=$session_bg,bg=$status_bg,nobold]$left_separator_black  "
   if [ x"$(tmux -q -L tmux_theme_status_left_test -f /dev/null new-session -d \; show -g -v status-left \; kill-session)" = x"[#S] " ]; then
     status_left="$status_left"
   fi
-  tmux set -g status-left-length 32 \; set -g status-left "$status_left"
+  tmux set -g status-left-length 100 \; set -g status-left "$status_left"
 
   window_status_fg=$default_fg
   window_status_bg=$default_bg
