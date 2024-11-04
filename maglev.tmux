@@ -183,22 +183,13 @@ apply_theme() {
     if [ "$SHOW_CPU" = true ]; then
         status_right="$status_right#[fg=$plugin_bg,bg=$host_fg,nobold]$right_top_separator"
     fi
-    status_right="$status_right#[fg=$time_date_fg,bg=$time_date_bg,nobold]$right_top_separator 󰃭 %m/%d %R 󰃰 UTC #(TZ='Europe/London' date +'%%m/%%d %%H:%%M') #[fg=$host_bg,bg=$host_fg,nobold]"
+    status_right="$status_right#[fg=$time_date_fg,bg=$time_date_bg,nobold]$right_top_separator 󰃭 %m/%d %R  UTC #(TZ='Europe/London' date +'%%m/%%d %%H:%%M') #[fg=$host_bg,bg=$host_fg,nobold]"
 
     tmux set -g status-right-length 100 \; set -g status-right "$status_right"
 
     # clock
     clock_mode_colour=colour4
     tmux setw -g clock-mode-colour $clock_mode_colour
-}
-
-circled_digit() {
-    circled_digits='⓪①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳'
-    if [ $1 -lt 20 ] 2>/dev/null; then
-        echo ${circled_digits:$1:1}
-    else
-        echo $1
-    fi
 }
 
 maximize_pane() {
