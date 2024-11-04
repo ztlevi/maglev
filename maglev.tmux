@@ -194,7 +194,7 @@ apply_theme() {
     whoami_bg=$theme_color_1
     host_fg=$default_bg
     host_bg=colour4
-    status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator 󰃭 %m/%d %R 󰃰 [UTC] #(TZ='Europe/London' date +'%%m/%%d %%H:%%M') #[fg=$host_bg,bg=$host_fg,nobold]"
+    status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator 󰃭 %m/%d %R 󰃰 UTC #(TZ='Europe/London' date +'%%m/%%d %%H:%%M') #[fg=$host_bg,bg=$host_fg,nobold]"
 
     # Only show solid separator if CPU or Battery are to be displayed
     if [ "$SHOW_BATTERY" = true ] || [ "$SHOW_CPU" = true ]; then
