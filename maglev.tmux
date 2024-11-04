@@ -133,6 +133,24 @@ apply_theme() {
     else
         os_icon=
     fi
+    case $OSTYPE in
+    linux*) if [[ -f /etc/nix/nix.conf ]]; then
+        os_icon=
+    elif [[ -f /etc/arch-release ]]; then
+        os_icon=󰣇
+    elif [[ -f /etc/debian_version ]]; then
+        os_icon=
+    elif [[ -f /etc/yum.conf ]]; then
+        os_icon=
+    else
+        os_icon=󰌽
+    fi ;;
+    darwin*) os_icon= ;;
+    cygwin*) os_icon=󰖳 ;;
+    esac
+
+    cpu_icon=
+    network_icon=󰖩
 
     session_fg=$default_bg
     session_bg=$theme_color_1
@@ -176,7 +194,7 @@ apply_theme() {
     whoami_bg=$theme_color_1
     host_fg=$default_bg
     host_bg=colour4
-    status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator  󰃭 %m/%d %R #[fg=$host_bg,bg=$host_fg,nobold]"
+    status_right="#{prefix_highlight} #[fg=$host_fg,bg=$host_bg,nobold]$right_top_separator 󰃭 %m/%d %R 󰃰 [UTC] #(TZ='Europe/London' date +'%%m/%%d %%H:%%M') #[fg=$host_bg,bg=$host_fg,nobold]"
 
     # Only show solid separator if CPU or Battery are to be displayed
     if [ "$SHOW_BATTERY" = true ] || [ "$SHOW_CPU" = true ]; then
@@ -193,14 +211,14 @@ apply_theme() {
     fi
 
     if [ "$SHOW_NETWORK" = true ]; then
-        status_right="$status_right#[fg=$host_fg,bg=$battery_bg,bold]$right_top_separator #{network_bandwidth} $right_separator_black"
+        status_right="$status_right#[fg=$host_fg,bg=$battery_bg,bold]$right_top_separator $network_icon  #{network_bandwidth} $right_separator_black"
     fi
 
     if [ "$SHOW_CPU" = true ]; then
-        status_right="$status_right#[fg=$host_fg,bg=$battery_bg,bold]$right_top_separator 󰈸 CPU #{cpu_percentage} "
+        status_right="$status_right#[fg=$host_fg,bg=$battery_bg,bold]$right_top_separator $cpu_icon  CPU #{cpu_percentage} "
     fi
 
-    tmux set -g status-right-length 64 \; set -g status-right "$status_right"
+    tmux set -g status-right-length 100 \; set -g status-right "$status_right"
 
     # clock
     clock_mode_colour=colour4

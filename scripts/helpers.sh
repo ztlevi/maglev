@@ -48,24 +48,6 @@ get_engine() {
   tmux show-options -g | grep -i "^@open-$engine_var" | cut -d ' ' -f2 | xargs
 }
 
-_os() {
-  case $OSTYPE in
-  linux*) if [[ -f /etc/nix/nix.conf ]]; then
-    echo linux-nixos
-  elif [[ -f /etc/arch-release ]]; then
-    echo linux-arch
-  elif [[ -f /etc/debian_version ]]; then
-    echo linux-debian
-  elif [[ -f /etc/yum.conf ]]; then
-    echo linux-RHEL
-  else
-    echo linux-gnu
-  fi ;;
-  darwin*) echo macos ;;
-  cygwin*) echo cygwin ;;
-  esac
-}
-
 tmux_version="$(tmux -V | cut -d ' ' -f 2 | sed 's/next-//'))"
 tmux-is-at-least() {
   if [[ $tmux_version == $1 ]]; then
