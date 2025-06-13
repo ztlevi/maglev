@@ -16,9 +16,9 @@ fi
 
 # Configure theme color for remote and non remote
 if [[ -z $SSH_CLIENT ]]; then
-    theme_color_1=colour6
-else
     theme_color_1=colour5
+else
+    theme_color_1=colour2
 fi
 
 PLUGINS=$(tmux show-options -g | grep @tpm_plugins)
